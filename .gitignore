@@ -1,0 +1,53 @@
+# 依赖包
+node_modules/
+app/node_modules/
+
+# 环境变量（.env.example 是模板文件，应保留在仓库中）
+.env
+.env.local
+.env*.local
+
+# 日志
+*.log
+npm-debug.log*
+yarn-debug.log*
+backend/logs/
+
+# 系统文件
+.DS_Store
+*.pem
+Thumbs.db
+desktop.ini
+
+# 构建产物
+/build
+/dist
+.next/
+
+# 用户上传文件
+backend/uploads/
+.uploads/
+
+# 杂项
+token.txt
+
+# 大文件
+frontend/public/demo.mp4
+frontend/public/珠宝拍卖.mp4
+app/node.exe
+app/corepack
+app/corepack.cmd
+app/install_tools.bat
+app/nodevars.bat
+app/npm
+app/npm.cmd
+app/npm.ps1
+app/npx
+app/npx.cmd
+app/npx.ps1
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

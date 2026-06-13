@@ -1,0 +1,16 @@
+:root { 
+  /* 商家数据中心主题 */ 
+  --dash-bg: #F8F8FA; 
+  --dash-card: #FFFFFF; 
+  --dash-radius: 16px; 
+  --dash-primary: #FF2E55; 
+  --dash-text: #222222; 
+  --dash-text-sub: #666666; 
+  --dash-text-muted: #999999; 
+  --dash-border: #EEEEEE; 
+  --dash-tag-active-bg: #FF2E55; 
+  --dash-tag-active-text: #FFFFFF; 
+  --dash-tag-bg: #FFFFFF; 
+  --dash-tag-border: #DDDDDD; 
+  --dash-tag-text: #666666; 
+} 

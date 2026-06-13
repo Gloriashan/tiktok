@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>健身普拉提 · iOS App 原型（单文件）</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'sans-serif'],
+          },
+          colors: {
+            mint: { 50: '#f0fdf8', 100: '#ccfbf0', 500: '#14b8a6', 600: '#0d9488', 900: '#134e4a' },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .phone-shell {
+      width: 375px;
+      border-radius: 44px;
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      border: 12px solid #1c1c1e;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 28px;
+      background: #1c1c1e;
+      border-radius: 0 0 18px 18px;
+      z-index: 20;
+    }
+    .screen-label {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 antialiased">
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4 py-3">
+      <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <p class="text-xs font-medium text-teal-600">健身普拉提 · 高保真原型</p>
+          <h1 class="text-lg font-semibold text-slate-900">单文件 · Tailwind + Unsplash</h1>
+        </div>
+        <nav class="flex flex-wrap gap-1.5 text-[11px]">
+          <a href="#s-welcome" class="rounded-full bg-slate-900 px-2.5 py-1 text-white">欢迎</a>
+          <a href="#s-onboarding" class="rounded-full bg-slate-200 px-2.5 py-1 hover:bg-slate-300">入门</a>
+          <a href="#s-home" class="rounded-full bg-slate-200 px-2.5 py-1 hover:bg-slate-300">首页</a>
+          <a href="#s-discover" class="rounded-full bg-slate-200 px-2.5 py-1 hover:bg-slate-300">发现</a>
+          <a href="#s-detail" class="rounded-full bg-slate-200 px-2.5 py-1 hover:bg-slate-300">详情</a>
+          <a href="#s-session" class="rounded-full bg-slate-200 px-2.5 py-1 hover:bg-slate-300">跟练</a>
+          <a href="#s-celebration" class="rounded-full bg-amber-100 px-2.5 py-1 font-medium text-amber-900 ring-1 ring-amber-200">完成庆祝</a>
+          <a href="#s-pain" class="rounded-full bg-rose-100 px-2.5 py-1 font-medium text-rose-900 ring-1 ring-rose-200">不适反馈</a>
+          <a href="#s-progress" class="rounded-full bg-slate-200 px-2.5 py-1 hover:bg-slate-300">进度</a>
+          <a href="#s-profile" class="rounded-full bg-slate-200 px-2.5 py-1 hover:bg-slate-300">我的</a>
+          <a href="#s-parent" class="rounded-full bg-indigo-100 px-2.5 py-1 font-medium text-indigo-900 ring-1 ring-indigo-200">家长锁</a>
+        </nav>
+      </div>
+      <p class="mt-2 text-[11px] text-slate-500">
+        屏顺序按产品优先级：核心闭环（庆祝）→ 安全信任（不适反馈）→ 未成年人场景（家长锁，常置于「我的」内）。
+      </p>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl space-y-16 px-4 py-10">
+    <p class="text-sm text-slate-600">
+      每个 <code class="rounded bg-slate-200 px-1">phone-shell</code> 模拟 iPhone 375pt 宽。开发可映射为 SwiftUI
+      <code class="rounded bg-slate-200 px-1">NavigationStack</code>、<code class="rounded bg-slate-200 px-1">TabView</code>、全屏跟练与庆祝页。
+    </p>
+
+    <!-- 1 欢迎 -->
+    <section id="s-welcome" class="scroll-mt-28">
+      <p class="screen-label mb-2">01 · 欢迎 / 品牌首屏</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-white">
+          <div class="phone-notch"></div>
+          <div class="relative flex h-full flex-col">
+            <img
+              src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+              alt="Pilates"
+              class="h-[52%] w-full object-cover"
+            />
+            <div class="flex flex-1 flex-col justify-between px-6 pb-10 pt-6">
+              <div>
+                <p class="text-xs font-medium uppercase tracking-wider text-teal-600">Pilates at home</p>
+                <h2 class="mt-2 text-2xl font-bold leading-tight text-slate-900">
+                  每天 15 分钟<br />把核心练稳
+                </h2>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">
+                  跟练视频、步骤拆解、休息计时，适合刚开始运动的你。
+                </p>
+              </div>
+              <div class="space-y-3">
+                <button type="button" class="w-full rounded-2xl bg-teal-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-600/30">
+                  开始使用
+                </button>
+                <button type="button" class="w-full rounded-2xl border border-slate-200 py-3.5 text-sm font-medium text-slate-700">
+                  已有账号登录
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">产品要点</h3>
+          <ul class="mt-2 list-inside list-disc space-y-1">
+            <li>一句话价值 + 真实运动场景图，降低「会不会很难」的顾虑。</li>
+            <li>主按钮「开始使用」进入 onboarding；次按钮留给老用户。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 Onboarding -->
+    <section id="s-onboarding" class="scroll-mt-28">
+      <p class="screen-label mb-2">02 · 入门问卷（3 步内完成）</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-slate-50">
+          <div class="phone-notch"></div>
+          <div class="flex h-full flex-col px-5 pt-14 pb-8">
+            <div class="flex items-center justify-between text-xs text-slate-500">
+              <span>步骤 2 / 3</span>
+              <span>跳过</span>
+            </div>
+            <h2 class="mt-6 text-xl font-bold text-slate-900">你一周想练几次？</h2>
+            <p class="mt-1 text-sm text-slate-600">我们会据此安排提醒与课程强度。</p>
+            <div class="mt-8 space-y-3">
+              <label class="flex cursor-pointer items-center justify-between rounded-2xl border-2 border-teal-500 bg-white p-4 shadow-sm">
+                <span class="text-sm font-medium">3 次 · 轻松养成</span>
+                <span class="h-5 w-5 rounded-full border-2 border-teal-500 bg-teal-500 ring-4 ring-teal-100"></span>
+              </label>
+              <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white p-4">
+                <span class="text-sm font-medium">5 次 · 进阶挑战</span>
+                <span class="h-5 w-5 rounded-full border-2 border-slate-300"></span>
+              </label>
+              <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white p-4">
+                <span class="text-sm font-medium">看心情 · 灵活练习</span>
+                <span class="h-5 w-5 rounded-full border-2 border-slate-300"></span>
+              </label>
+            </div>
+            <div class="mt-auto space-y-3">
+              <button type="button" class="w-full rounded-2xl bg-slate-900 py-3.5 text-sm font-semibold text-white">
+                下一步
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">交互</h3>
+          <p class="mt-2">单选卡片 + 底部主按钮；支持跳过，避免强制填表流失。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 Home -->
+    <section id="s-home" class="scroll-mt-28">
+      <p class="screen-label mb-2">03 · 首页（Tab：首页）</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-white">
+          <div class="phone-notch"></div>
+          <div class="relative flex h-full flex-col">
+            <div class="px-5 pt-14 pb-2">
+              <p class="text-xs text-slate-500">晚上好，小林</p>
+              <h2 class="text-xl font-bold text-slate-900">今天 · 核心稳定 12 分钟</h2>
+            </div>
+            <div class="flex-1 overflow-y-auto px-5 pb-24">
+              <div class="relative mt-2 overflow-hidden rounded-3xl">
+                <img
+                  src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80"
+                  alt="Workout"
+                  class="h-44 w-full object-cover"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+                  <div>
+                    <p class="text-xs text-white/80">推荐 · 入门</p>
+                    <p class="text-base font-semibold text-white">骨盆中立 · 垫上普拉提</p>
+                  </div>
+                  <button type="button" class="rounded-full bg-white px-4 py-2 text-xs font-semibold text-teal-700">
+                    继续
+                  </button>
+                </div>
+              </div>
+              <div class="mt-6 grid grid-cols-3 gap-3">
+                <div class="rounded-2xl bg-teal-50 p-3 text-center">
+                  <p class="text-lg font-bold text-teal-800">7</p>
+                  <p class="text-[10px] text-teal-700">连续天</p>
+                </div>
+                <div class="rounded-2xl bg-slate-50 p-3 text-center">
+                  <p class="text-lg font-bold text-slate-800">86</p>
+                  <p class="text-[10px] text-slate-600">总分钟</p>
+                </div>
+                <div class="rounded-2xl bg-slate-50 p-3 text-center">
+                  <p class="text-lg font-bold text-slate-800">4</p>
+                  <p class="text-[10px] text-slate-600">本周课</p>
+                </div>
+              </div>
+              <h3 class="mt-8 text-sm font-semibold text-slate-900">为你准备</h3>
+              <div class="mt-3 space-y-3">
+                <div class="flex gap-3 rounded-2xl border border-slate-100 bg-slate-50/80 p-3">
+                  <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=200&q=80" class="h-16 w-16 rounded-xl object-cover" alt="" />
+                  <div class="min-w-0 flex-1">
+                    <p class="truncate text-sm font-medium text-slate-900">肩颈舒缓 · 8 分钟</p>
+                    <p class="text-xs text-slate-500">久坐后放松</p>
+                  </div>
+                  <span class="self-center text-xs font-medium text-teal-600">去练</span>
+                </div>
+                <div class="flex gap-3 rounded-2xl border border-slate-100 bg-slate-50/80 p-3">
+                  <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=200&q=80" class="h-16 w-16 rounded-xl object-cover" alt="" />
+                  <div class="min-w-0 flex-1">
+                    <p class="truncate text-sm font-medium text-slate-900">臀腿线条 · 15 分钟</p>
+                    <p class="text-xs text-slate-500">无跳跃</p>
+                  </div>
+                  <span class="self-center text-xs font-medium text-teal-600">去练</span>
+                </div>
+              </div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 border-t border-slate-200 bg-white/95 px-6 py-2 backdrop-blur">
+              <div class="flex justify-between text-[10px] text-slate-400">
+                <div class="flex flex-col items-center text-teal-600">
+                  <span class="text-lg">⌂</span><span>首页</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <span class="text-lg">◎</span><span>发现</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <span class="text-lg">▥</span><span>进度</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <span class="text-lg">☺</span><span>我的</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">首页逻辑</h3>
+          <p class="mt-2">「今日主任务」最大；次要列表用缩略图 + 时长，减少阅读负担。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 Discover -->
+    <section id="s-discover" class="scroll-mt-28">
+      <p class="screen-label mb-2">04 · 发现 · 课程库 + 筛选</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-white">
+          <div class="phone-notch"></div>
+          <div class="flex h-full flex-col pt-14">
+            <div class="px-5">
+              <h2 class="text-xl font-bold">发现课程</h2>
+              <div class="mt-3 flex gap-2 overflow-x-auto pb-1 text-xs">
+                <span class="whitespace-nowrap rounded-full bg-slate-900 px-3 py-1.5 text-white">全部</span>
+                <span class="whitespace-nowrap rounded-full bg-slate-100 px-3 py-1.5 text-slate-700">10 分钟内</span>
+                <span class="whitespace-nowrap rounded-full bg-slate-100 px-3 py-1.5 text-slate-700">核心</span>
+                <span class="whitespace-nowrap rounded-full bg-slate-100 px-3 py-1.5 text-slate-700">柔韧</span>
+              </div>
+            </div>
+            <div class="mt-4 flex-1 space-y-4 overflow-y-auto px-5 pb-28">
+              <article class="overflow-hidden rounded-3xl border border-slate-100 bg-slate-50">
+                <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&q=80" class="h-36 w-full object-cover" alt="" />
+                <div class="p-4">
+                  <div class="flex items-center justify-between">
+                    <h3 class="font-semibold text-slate-900">呼吸与肋骨角</h3>
+                    <span class="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-teal-700 ring-1 ring-teal-100">入门</span>
+                  </div>
+                  <p class="mt-1 text-xs text-slate-600">12 分钟 · 垫上 · 讲解细</p>
+                </div>
+              </article>
+              <article class="overflow-hidden rounded-3xl border border-slate-100 bg-slate-50">
+                <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&q=80" class="h-36 w-full object-cover" alt="" />
+                <div class="p-4">
+                  <div class="flex items-center justify-between">
+                    <h3 class="font-semibold text-slate-900">侧链稳定 · 侧卧系列</h3>
+                    <span class="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-amber-700 ring-1 ring-amber-100">进阶</span>
+                  </div>
+                  <p class="mt-1 text-xs text-slate-600">18 分钟 · 需要瑜伽垫</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">筛选策略</h3>
+          <p class="mt-2">初中生时间碎片化：优先「时长」与「难度」标签；卡片大图提升点击欲。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 Detail -->
+    <section id="s-detail" class="scroll-mt-28">
+      <p class="screen-label mb-2">05 · 课程详情（训练前确认）</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-white">
+          <div class="phone-notch"></div>
+          <div class="relative flex h-full flex-col">
+            <button type="button" class="absolute left-4 top-12 z-10 rounded-full bg-black/40 px-3 py-1 text-xs text-white backdrop-blur">
+              ← 返回
+            </button>
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80" class="h-56 w-full object-cover" alt="" />
+            <div class="flex-1 overflow-y-auto px-5 pb-28 pt-4">
+              <h2 class="text-xl font-bold text-slate-900">骨盆中立 · 垫上普拉提</h2>
+              <p class="mt-1 text-sm text-slate-600">教练：阿宁 · 12 分钟 · 需要瑜伽垫</p>
+              <div class="mt-4 flex gap-2 text-xs">
+                <span class="rounded-full bg-teal-50 px-2 py-1 text-teal-800">核心</span>
+                <span class="rounded-full bg-slate-100 px-2 py-1 text-slate-700">膝关节友好</span>
+                <span class="rounded-full bg-slate-100 px-2 py-1 text-slate-700">讲解模式</span>
+              </div>
+              <h3 class="mt-6 text-sm font-semibold">你会练到</h3>
+              <ul class="mt-2 space-y-2 text-sm text-slate-600">
+                <li class="flex gap-2"><span class="text-teal-600">✓</span> 骨盆后倾 / 前倾感知</li>
+                <li class="flex gap-2"><span class="text-teal-600">✓</span> 腹横肌激活</li>
+                <li class="flex gap-2"><span class="text-teal-600">✓</span> 仰卧脊柱中立</li>
+              </ul>
+              <h3 class="mt-6 text-sm font-semibold">动作预览</h3>
+              <div class="mt-2 flex gap-2 overflow-x-auto pb-2">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=200&q=80" class="h-20 w-28 shrink-0 rounded-xl object-cover" alt="" />
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&q=80" class="h-20 w-28 shrink-0 rounded-xl object-cover" alt="" />
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=200&q=80" class="h-20 w-28 shrink-0 rounded-xl object-cover" alt="" />
+              </div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 border-t border-slate-200 bg-white p-4">
+              <button type="button" class="w-full rounded-2xl bg-teal-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-600/25">
+                开始跟练
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">详情页目的</h3>
+          <p class="mt-2">训练前让用户确认器械、目标肌群；真实 App 可加免责声明与「疼痛即停」提示。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 Session -->
+    <section id="s-session" class="scroll-mt-28">
+      <p class="screen-label mb-2">06 · 跟练中（核心界面）</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-slate-900 text-white">
+          <div class="phone-notch"></div>
+          <div class="flex h-full flex-col pt-14">
+            <div class="flex items-center justify-between px-5 text-xs text-white/60">
+              <span>第 3 / 8 步</span>
+              <span>暂停 · 不适反馈</span>
+            </div>
+            <div class="mt-4 px-5">
+              <p class="text-sm text-teal-300">当前 · Dead Bug 变式</p>
+              <p class="mt-1 text-2xl font-bold leading-snug">腰背贴地，对侧手脚缓慢伸展</p>
+            </div>
+            <div class="relative mx-5 mt-6 flex-1 overflow-hidden rounded-3xl bg-black">
+              <img
+                src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+                class="h-full w-full object-cover opacity-90"
+                alt=""
+              />
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="flex h-28 w-28 items-center justify-center rounded-full border-4 border-white/40 bg-black/30 text-3xl font-bold backdrop-blur">
+                  0:42
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 px-5 py-6">
+              <button type="button" class="rounded-2xl bg-white/10 py-3 text-sm font-medium text-white">
+                上一步
+              </button>
+              <button type="button" class="rounded-2xl bg-teal-500 py-3 text-sm font-semibold text-slate-900">
+                下一步
+              </button>
+            </div>
+            <p class="px-5 pb-8 text-center text-[11px] text-white/50">
+              提示：腰酸或脖子累就暂停，可在菜单中记录不适。
+            </p>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">训练中 UX</h3>
+          <ul class="mt-2 list-inside list-disc space-y-1">
+            <li>大字口令 + 中央计时，减少盯小字。</li>
+            <li>暗色背景突出示范；右上角预留「不适反馈」入口。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 Celebration — 优先级① 核心闭环 -->
+    <section id="s-celebration" class="scroll-mt-28">
+      <p class="screen-label mb-2">07 · 训练完成庆祝（核心闭环 · 高优先级）</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-gradient-to-b from-amber-50 via-white to-teal-50/80">
+          <div class="phone-notch"></div>
+          <div class="flex h-full flex-col items-center px-6 pt-16 pb-10 text-center">
+            <div class="relative">
+              <div class="absolute -inset-4 rounded-full bg-amber-200/40 blur-2xl"></div>
+              <img
+                src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80"
+                alt=""
+                class="relative h-28 w-28 rounded-full object-cover ring-4 ring-white shadow-xl"
+              />
+            </div>
+            <p class="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-amber-600">Well done</p>
+            <h2 class="mt-2 text-2xl font-bold text-slate-900">今天这节课，练完了！</h2>
+            <p class="mt-2 text-sm text-slate-600">骨盆中立 · 垫上普拉提 · 12 分钟</p>
+            <div class="mt-8 grid w-full grid-cols-3 gap-2 rounded-3xl bg-white/90 p-4 shadow-sm ring-1 ring-amber-100/80">
+              <div>
+                <p class="text-xl font-bold text-teal-600">+32</p>
+                <p class="text-[10px] text-slate-500">千卡估计</p>
+              </div>
+              <div class="border-x border-slate-100">
+                <p class="text-xl font-bold text-slate-900">8</p>
+                <p class="text-[10px] text-slate-500">动作完成</p>
+              </div>
+              <div>
+                <p class="text-xl font-bold text-amber-600">8</p>
+                <p class="text-[10px] text-slate-500">连续天</p>
+              </div>
+            </div>
+            <div class="mt-6 w-full space-y-3">
+              <button type="button" class="w-full rounded-2xl bg-slate-900 py-3.5 text-sm font-semibold text-white shadow-lg">
+                分享成就（可选）
+              </button>
+              <button type="button" class="w-full rounded-2xl border border-slate-200 bg-white py-3.5 text-sm font-medium text-slate-700">
+                记录身体感受
+              </button>
+              <button type="button" class="w-full text-sm font-medium text-teal-700">
+                返回首页
+              </button>
+            </div>
+            <p class="mt-auto text-[10px] text-slate-400">庆祝页强化正向反馈，提升次日打开率。</p>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">为何优先</h3>
+          <p class="mt-2">
+            完成训练是核心 Aha 时刻：即时成就、连续打卡可视化、次要入口「记录感受」可衔接不适反馈（非强制，避免扫兴）。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 Pain / discomfort — 优先级② 安全与信任 -->
+    <section id="s-pain" class="scroll-mt-28">
+      <p class="screen-label mb-2">08 · 疼痛 / 不适反馈（安全 · 高优先级）</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-white">
+          <div class="phone-notch"></div>
+          <div class="flex h-full flex-col px-5 pt-14 pb-8">
+            <button type="button" class="self-start rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600">
+              ← 关闭
+            </button>
+            <h2 class="mt-4 text-xl font-bold text-slate-900">哪里不舒服？</h2>
+            <p class="mt-1 text-sm text-slate-600">
+              我们会保存记录（仅本地或可同步），并推荐降低强度或休息。严重疼痛请停止训练并告知家长或就医。
+            </p>
+            <div class="mt-6 space-y-2">
+              <p class="text-xs font-medium text-slate-500">部位（可多选）</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="rounded-full border-2 border-rose-400 bg-rose-50 px-3 py-1.5 text-xs font-medium text-rose-800">腰部</span>
+                <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-700">颈部</span>
+                <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-700">膝盖</span>
+                <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-700">手腕</span>
+                <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-700">肩膀</span>
+              </div>
+            </div>
+            <div class="mt-6">
+              <p class="text-xs font-medium text-slate-500">程度</p>
+              <div class="mt-2 flex gap-2">
+                <span class="flex-1 rounded-2xl border border-slate-200 py-2 text-center text-xs text-slate-600">轻微</span>
+                <span class="flex-1 rounded-2xl border-2 border-rose-400 bg-rose-50 py-2 text-center text-xs font-semibold text-rose-800">明显</span>
+                <span class="flex-1 rounded-2xl border border-slate-200 py-2 text-center text-xs text-slate-600">很痛</span>
+              </div>
+            </div>
+            <div class="mt-6 flex-1">
+              <label class="text-xs font-medium text-slate-500">补充说明（选填）</label>
+              <textarea
+                rows="3"
+                class="mt-2 w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400"
+                placeholder="例如：做完第 5 个动作后开始酸…"
+                readonly
+              ></textarea>
+            </div>
+            <div class="space-y-2">
+              <button type="button" class="w-full rounded-2xl bg-rose-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-rose-600/25">
+                保存并结束本次训练
+              </button>
+              <button type="button" class="w-full rounded-2xl border border-slate-200 py-3 text-sm font-medium text-slate-700">
+                仅保存，继续休息后再练
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">入口与原则</h3>
+          <ul class="mt-2 list-inside list-disc space-y-1">
+            <li>从跟练「暂停」、庆祝页「记录感受」或设置中进入。</li>
+            <li>文案强调停练与安全，避免替代医疗诊断。</li>
+            <li>数据可用于个性化降强度推荐（产品后续迭代）。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 Progress -->
+    <section id="s-progress" class="scroll-mt-28">
+      <p class="screen-label mb-2">09 · 进度 · 打卡日历</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-slate-50">
+          <div class="phone-notch"></div>
+          <div class="flex h-full flex-col px-5 pt-14 pb-10">
+            <h2 class="text-xl font-bold text-slate-900">你的节奏</h2>
+            <p class="text-sm text-slate-600">连续 7 天 · 本周已完成 4 次</p>
+            <div class="mt-6 rounded-3xl bg-white p-4 shadow-sm ring-1 ring-slate-100">
+              <div class="grid grid-cols-7 gap-2 text-center text-[10px] text-slate-400">
+                <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+              </div>
+              <div class="mt-2 grid grid-cols-7 gap-2 text-center text-xs">
+                <span class="rounded-lg py-2 text-slate-300"> </span>
+                <span class="rounded-lg bg-teal-500 py-2 font-semibold text-white">1</span>
+                <span class="rounded-lg bg-teal-100 py-2 font-medium text-teal-800">2</span>
+                <span class="rounded-lg bg-teal-500 py-2 font-semibold text-white">3</span>
+                <span class="rounded-lg bg-slate-100 py-2 text-slate-400">4</span>
+                <span class="rounded-lg bg-teal-100 py-2 font-medium text-teal-800">5</span>
+                <span class="rounded-lg bg-teal-500 py-2 font-semibold text-white">6</span>
+              </div>
+            </div>
+            <h3 class="mt-8 text-sm font-semibold text-slate-900">最近记录</h3>
+            <div class="mt-3 space-y-3">
+              <div class="flex items-center justify-between rounded-2xl bg-white p-3 ring-1 ring-slate-100">
+                <div>
+                  <p class="text-sm font-medium text-slate-900">骨盆中立 · 垫上</p>
+                  <p class="text-xs text-slate-500">昨天 · 12 分钟</p>
+                </div>
+                <span class="text-lg">✓</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl bg-white p-3 ring-1 ring-slate-100">
+                <div>
+                  <p class="text-sm font-medium text-slate-900">肩颈舒缓</p>
+                  <p class="text-xs text-slate-500">3 天前 · 8 分钟</p>
+                </div>
+                <span class="text-lg">✓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">动机设计</h3>
+          <p class="mt-2">连续天与简单日历比复杂图表更适合入门用户。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 Profile -->
+    <section id="s-profile" class="scroll-mt-28">
+      <p class="screen-label mb-2">10 · 我的（含家长锁入口）</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-white">
+          <div class="phone-notch"></div>
+          <div class="flex h-full flex-col px-5 pt-14 pb-10">
+            <div class="flex items-center gap-4">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" class="h-16 w-16 rounded-full object-cover" alt="" />
+              <div>
+                <p class="text-lg font-bold text-slate-900">小林</p>
+                <p class="text-xs text-slate-500">入门计划 · 提醒 19:30</p>
+              </div>
+            </div>
+            <div class="mt-8 space-y-2 text-sm">
+              <div class="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
+                <span>训练提醒</span>
+                <span class="rounded-full bg-teal-500/90 px-3 py-1 text-[10px] font-semibold text-white">开</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl bg-indigo-50 px-4 py-3 ring-1 ring-indigo-100">
+                <div>
+                  <p class="font-medium text-slate-900">家长锁与使用时长</p>
+                  <p class="text-[10px] text-slate-500">需家长密码修改限额</p>
+                </div>
+                <span class="text-indigo-600">›</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
+                <span>下载课程（离线）</span>
+                <span class="text-slate-400">›</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
+                <span>健康与安全提示</span>
+                <span class="text-slate-400">›</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
+                <span>关于与隐私</span>
+                <span class="text-slate-400">›</span>
+              </div>
+            </div>
+            <p class="mt-auto pt-8 text-center text-[10px] text-slate-400">
+              「家长锁」为合规常见能力，放在「我的」而非首屏。
+            </p>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">信息架构</h3>
+          <p class="mt-2">家长相关功能聚合在「我的」，避免打断主训练路径；与不适反馈、隐私并列可发现。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 Parental lock — 优先级③ 合规与场景 -->
+    <section id="s-parent" class="scroll-mt-28">
+      <p class="screen-label mb-2">11 · 家长锁（未成年人场景 · 中优先级 / 深路径）</p>
+      <div class="flex flex-wrap gap-8">
+        <div class="phone-shell h-[812px] bg-indigo-950 text-white">
+          <div class="phone-notch"></div>
+          <div class="flex h-full flex-col px-5 pt-14 pb-8">
+            <button type="button" class="self-start rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 backdrop-blur">
+              ← 返回
+            </button>
+            <div class="mt-4 flex items-center gap-3">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/30 text-xl">🔒</div>
+              <div>
+                <h2 class="text-lg font-bold">家长验证</h2>
+                <p class="text-xs text-indigo-200/90">修改每日使用时长或关闭限制前需要验证</p>
+              </div>
+            </div>
+            <div class="mt-8 rounded-3xl bg-white/10 p-4 ring-1 ring-white/10">
+              <p class="text-xs font-medium text-indigo-200">请输入 4 位家长密码</p>
+              <div class="mt-4 flex justify-center gap-3">
+                <span class="flex h-12 w-10 items-center justify-center rounded-xl bg-white text-lg font-bold text-indigo-900">•</span>
+                <span class="flex h-12 w-10 items-center justify-center rounded-xl bg-white text-lg font-bold text-indigo-900">•</span>
+                <span class="flex h-12 w-10 items-center justify-center rounded-xl bg-white/40 text-lg font-bold text-indigo-900"> </span>
+                <span class="flex h-12 w-10 items-center justify-center rounded-xl bg-white/20 text-lg"> </span>
+              </div>
+              <p class="mt-3 text-center text-[10px] text-indigo-300/80">忘记密码？使用 Apple ID / 邮件验证重置（示意）</p>
+            </div>
+            <div class="mt-6 space-y-4">
+              <div class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm">每日训练上限</span>
+                  <span class="text-sm font-semibold text-teal-300">45 分钟</span>
+                </div>
+                <p class="mt-1 text-[10px] text-indigo-300/80">到点后仅可浏览，不可开始新课（可配置）</p>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl bg-white/5 px-4 py-3 ring-1 ring-white/10">
+                <span class="text-sm">晚 22:00–早 7:00 禁止使用</span>
+                <span class="rounded-full bg-teal-500 px-3 py-1 text-[10px] font-semibold text-indigo-950">已开启</span>
+              </div>
+            </div>
+            <button type="button" class="mt-auto w-full rounded-2xl bg-white py-3.5 text-sm font-semibold text-indigo-950">
+              验证并进入设置
+            </button>
+          </div>
+        </div>
+        <div class="max-w-md text-sm text-slate-600">
+          <h3 class="font-semibold text-slate-900">为何放在较后优先级</h3>
+          <p class="mt-2">
+            主路径是「练完 → 庆祝 → 再来」；家长锁属于低频、强管控能力，适合深路径 + 明确文案，避免青少年每次打开都被拦。与行业常见「儿童账号 / 屏幕时间」心智一致。
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    健身普拉提 App 原型 · 单 HTML · Tailwind CDN · Unsplash ·
+    <a href="#s-celebration" class="text-teal-600">庆祝</a> ·
+    <a href="#s-pain" class="text-rose-600">不适</a> ·
+    <a href="#s-parent" class="text-indigo-600">家长锁</a>
+  </footer>
+</body>
+</html>
